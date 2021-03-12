@@ -9,13 +9,15 @@
           filled
           v-model="order.name"
           label="Name"
-          hint="Order Name"/>
+          hint="Order Name"
+          :rules="[val => !!val || 'Name is missing', isValidName]"/>
         <q-input
           filled
           type="textarea"
           v-model="order.description"
           label="Description"
-          hint="Order Description"/>
+          hint="Order Description"
+          :rules="[ val => val.length <= 140 || 'Please use maximum 140 characters']"/>
         <q-select
           filled
           v-model="order.tags"
@@ -64,6 +66,10 @@ export default defineComponent({
         description: '',
         tags: [] as string[]
       };
+    },
+    isValidName() {
+      const pattern = /^[a-zA-Z_]*$/;
+      return pattern.test(this.$data.order.name) || 'Only latin characters and underscore is allowed';
     }
   },
   async mounted() {
