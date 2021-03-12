@@ -1,18 +1,29 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page class="q-pa-sm" >
+    <q-table
+      virtual-scroll
+      :virtual-scroll-item-size="48"
+      :rows-per-page-options="[0]"
+      title="Todos"
+      :data="todos"
+      :columns="columns"
+      row-key="name">
+      <template v-slot:top>
+        <q-toolbar class="text-primary">
+          <q-toolbar-title>
+            Todos
+          </q-toolbar-title>
+          <q-btn color="primary" label="Add Todo" @click="addTodo"/>
+        </q-toolbar>
+      </template>
+    </q-table>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models'
-import ExampleComponent from 'components/CompositionComponent.vue'
-import { defineComponent, ref } from '@vue/composition-api'
+import { Todo, Column } from 'components/models';
+import ExampleComponent from 'components/CompositionComponent.vue';
+import { defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'PageIndex',
@@ -39,11 +50,30 @@ export default defineComponent({
         id: 5,
         content: 'ct5'
       }
-    ])
-    const meta = ref<Meta>({
-      totalCount: 1200
-    })
-    return { todos, meta }
+    ]);
+
+    const columns = ref<Column[]>([
+      {
+        name: 'id',
+        label: 'ID',
+        field: 'id'
+      },
+      {
+        name: 'content',
+        label: 'Content',
+        field: 'content'
+      }
+    ]);
+
+    function addTodo (): void {
+      const newTodo: Todo = {
+        id: 6,
+        content: 'ct6'
+      };
+      todos.value.push(newTodo);
+    }
+
+    return { todos, columns, addTodo };
   }
-})
+});
 </script>
