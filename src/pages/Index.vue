@@ -12,7 +12,7 @@
           <q-toolbar-title>
             Orders
           </q-toolbar-title>
-          <q-btn color="primary" label="New Order" @click="addTodo"/>
+          <q-btn color="primary" label="New Order" @click="addOrder"/>
         </q-toolbar>
       </template>
       <template v-slot:body-cell-tags="props">
@@ -62,15 +62,6 @@ export default defineComponent({
       }
     ]);
 
-    function addTodo (): void {
-      const newTodo: Order = {
-        name: 'New Order',
-        description: 'just added order',
-        tags: ['Invest', 'Stonks']
-      };
-      orders.value.push(newTodo);
-    }
-
     async function loadTodos() {
       const response = await axios.get<Order[]>('/api/orders');
       orders.value = response.data;
@@ -80,7 +71,12 @@ export default defineComponent({
       await loadTodos();
     });
 
-    return { orders, columns, addTodo, loadTodos };
+    return { orders, columns, loadTodos };
+  },
+  methods: {
+    async addOrder() {
+      await this.$router.push('new');
+    }
   }
 });
 </script>
