@@ -17,6 +17,11 @@ export default () => {
       name: 'Order 3',
       description: 'order number three',
       tags: ['Daily', 'Weekly']
+    },
+    {
+      name: 'Order 4',
+      description: 'order number four',
+      tags: ['Daily']
     }
   ];
   const tags = ['Customer', 'Support', 'Invest', 'Daily', 'Weekly'];

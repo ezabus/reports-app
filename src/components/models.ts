@@ -14,3 +14,8 @@ export interface Column {
   label?: string;
   align?: string;
 }
+
+export interface FilterState {
+  search: string;
+  tags: string[];
+}
