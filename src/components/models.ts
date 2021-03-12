@@ -1,6 +1,7 @@
-export interface Todo {
-  id: number;
-  content: string;
+export interface Order {
+  name: string;
+  description: string;
+  tags: string[];
 }
 
 export interface Meta {
@@ -11,4 +12,5 @@ export interface Column {
   name: string;
   field?: string;
   label?: string;
+  align?: string;
 }

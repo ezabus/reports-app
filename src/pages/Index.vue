@@ -4,76 +4,91 @@
       virtual-scroll
       :virtual-scroll-item-size="48"
       :rows-per-page-options="[0]"
-      title="Todos"
-      :data="todos"
+      :data="orders"
       :columns="columns"
       row-key="name">
       <template v-slot:top>
         <q-toolbar class="text-primary">
           <q-toolbar-title>
-            Todos
+            Orders
           </q-toolbar-title>
-          <q-btn color="primary" label="Add Todo" @click="addTodo"/>
+          <q-btn color="primary" label="New Order" @click="addTodo"/>
         </q-toolbar>
+      </template>
+      <template v-slot:body-cell-tags="props">
+        <q-td key="name" :props="props">
+          <div class="tagList">
+            <div v-for="tag in props.row.tags" :key="tag">
+              <q-chip dense color="primary" text-color="white">
+                {{ tag }}
+              </q-chip>
+            </div>
+          </div>
+        </q-td>
       </template>
     </q-table>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Column } from 'components/models';
+import { Order, Column } from 'components/models';
 import ExampleComponent from 'components/CompositionComponent.vue';
-import { defineComponent, ref } from '@vue/composition-api';
+import { defineComponent, ref, onMounted } from '@vue/composition-api';
+import axios from 'axios';
 
 export default defineComponent({
   name: 'PageIndex',
   components: { ExampleComponent },
   setup () {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
+    const orders = ref<Order[]>([]);
 
     const columns = ref<Column[]>([
       {
-        name: 'id',
-        label: 'ID',
-        field: 'id'
+        name: 'name',
+        label: 'Name',
+        field: 'name',
+        align: 'left'
       },
       {
-        name: 'content',
-        label: 'Content',
-        field: 'content'
+        name: 'description',
+        label: 'Description',
+        field: 'description',
+        align: 'left'
+      },
+      {
+        name: 'tags',
+        label: 'Tags',
+        field: 'tags'
       }
     ]);
 
     function addTodo (): void {
-      const newTodo: Todo = {
-        id: 6,
-        content: 'ct6'
+      const newTodo: Order = {
+        name: 'New Order',
+        description: 'just added order',
+        tags: ['Invest', 'Stonks']
       };
-      todos.value.push(newTodo);
+      orders.value.push(newTodo);
     }
 
-    return { todos, columns, addTodo };
+    async function loadTodos() {
+      const response = await axios.get<Order[]>('/api/orders');
+      orders.value = response.data;
+    }
+
+    onMounted(async () => {
+      await loadTodos();
+    });
+
+    return { orders, columns, addTodo, loadTodos };
   }
 });
 </script>
+
+<style lang="css" scoped>
+.tagList {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+</style>

@@ -3,7 +3,7 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title>
-          Quasar App
+          Reports App
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -14,9 +14,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'MainLayout'
-})
+});
 </script>

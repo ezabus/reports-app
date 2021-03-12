@@ -1,29 +1,25 @@
 import { createServer } from 'miragejs';
+// import { Order } from '../components/models';
 
 export default () => {
   if (process.env.DEV) {
     createServer({
       routes() {
-        this.get('/api/todos', () => [
+        this.get('/api/orders', () => [
           {
-            id: 1,
-            content: 'ct1'
+            name: 'Order 1',
+            description: 'order number one',
+            tags: ['Customer']
           },
           {
-            id: 2,
-            content: 'ct2'
+            name: 'Order 2',
+            description: 'order number two',
+            tags: []
           },
           {
-            id: 3,
-            content: 'ct3'
-          },
-          {
-            id: 4,
-            content: 'ct4'
-          },
-          {
-            id: 5,
-            content: 'ct5'
+            name: 'Order 3',
+            description: 'order number three',
+            tags: ['Daily', 'Weekly']
           }
         ]);
       }
