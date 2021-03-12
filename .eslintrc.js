@@ -43,7 +43,6 @@ module.exports = {
     // 'plugin:vue/recommended', // Priority C: Recommended (Minimizing Arbitrary Choices and Cognitive Overhead)
 
     'standard'
-
   ],
 
   plugins: [
@@ -52,8 +51,7 @@ module.exports = {
 
     // https://eslint.vuejs.org/user-guide/#why-doesn-t-it-work-on-vue-file
     // required to lint *.vue files
-    'vue',
-
+    'vue'
   ],
 
   globals: {
@@ -82,6 +80,8 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'prefer-promise-reject-errors': 'off',
+    semi: [1, 'always'],
+    'space-before-function-paren': 'off',
 
     // TypeScript
     quotes: ['warn', 'single', { avoidEscape: true }],
@@ -91,4 +91,4 @@ module.exports = {
     // allow debugger during development only
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
-}
+};
