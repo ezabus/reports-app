@@ -9,13 +9,13 @@
           filled
           v-model="order.name"
           label="Name"
-          hint="Name and surname"/>
+          hint="Order Name"/>
         <q-input
           filled
           type="textarea"
           v-model="order.description"
           label="Description"
-          hint="Name and surname"/>
+          hint="Order Description"/>
         <q-select
           filled
           v-model="order.tags"
