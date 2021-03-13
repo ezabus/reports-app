@@ -1,26 +1,25 @@
 import { createServer } from 'miragejs';
-// import { Order } from '../components/models';
 
 export default () => {
-  const orders = [
+  const reports = [
     {
-      name: 'Order 1',
-      description: 'order number one',
+      name: 'Report_1',
+      description: 'report number one',
       tags: ['Customer']
     },
     {
-      name: 'Order 2',
-      description: 'order number two',
+      name: 'Report_2',
+      description: 'report number two',
       tags: []
     },
     {
-      name: 'Order 3',
-      description: 'order number three',
+      name: 'Report_3',
+      description: 'report number three',
       tags: ['Daily', 'Weekly']
     },
     {
-      name: 'Order 4',
-      description: 'order number four',
+      name: 'Report_4',
+      description: 'report number four',
       tags: ['Daily']
     }
   ];
@@ -28,13 +27,13 @@ export default () => {
   if (process.env.DEV) {
     createServer({
       routes() {
-        this.get('/api/orders', () => orders);
+        this.get('/api/reports', () => reports);
         this.get('/api/tags', () => tags);
-        this.post('/api/newOrder', (schema, request) => {
+        this.post('/api/newReport', (schema, request) => {
           if (request.requestBody) {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             const order = JSON.parse(request.requestBody);
-            orders.push(order);
+            reports.push(order);
           }
         });
       }

@@ -9,7 +9,7 @@ const routes: RouteConfig[] = [
       {
         path: '/new',
         name: 'new',
-        component: () => import('pages/NewOrder.vue')
+        component: () => import('src/pages/NewReport.vue')
       }
     ]
   },

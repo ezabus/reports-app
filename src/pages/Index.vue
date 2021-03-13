@@ -2,22 +2,22 @@
   <q-page class="q-pa-sm" >
     <q-toolbar class="text-primary">
       <q-toolbar-title>
-        Orders
+        Reports
       </q-toolbar-title>
       <q-space />
-      <q-btn color="primary" label="New Order" @click="addOrder"/>
+      <q-btn color="primary" label="New Report" @click="addReport"/>
     </q-toolbar>
     <q-table
       virtual-scroll
       :virtual-scroll-item-size="48"
       :rows-per-page-options="[0]"
-      :data="orders"
+      :data="reports"
       :columns="columns"
       :filter="filter"
       :filter-method="filterTable"
       row-key="name">
       <template v-slot:top>
-        <q-input borderless dense debounce="300" v-model="filter.search" placeholder="Order Name">
+        <q-input borderless dense debounce="300" v-model="filter.search" placeholder="Report Name">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
@@ -50,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { Order, Column, FilterState } from 'components/models';
+import { Report, Column, FilterState } from 'components/models';
 import ExampleComponent from 'components/CompositionComponent.vue';
 import { defineComponent, ref, onMounted } from '@vue/composition-api';
 import axios from 'axios';
@@ -59,7 +59,7 @@ export default defineComponent({
   name: 'PageIndex',
   components: { ExampleComponent },
   setup () {
-    const orders = ref<Order[]>([]);
+    const reports = ref<Report[]>([]);
     const filter = ref<FilterState>({ search: '', tags: [] });
     const tags = ref<string[]>([]);
 
@@ -83,9 +83,9 @@ export default defineComponent({
       }
     ]);
 
-    async function loadOrders() {
-      const response = await axios.get<Order[]>('/api/orders');
-      orders.value = response.data;
+    async function loadReports() {
+      const response = await axios.get<Report[]>('/api/reports');
+      reports.value = response.data;
     }
 
     async function loadTags() {
@@ -94,20 +94,20 @@ export default defineComponent({
     }
 
     onMounted(async () => {
-      await loadOrders();
+      await loadReports();
       await loadTags();
     });
 
-    return { orders, columns, loadOrders, filter, tags };
+    return { reports, columns, loadReports, filter, tags };
   },
   methods: {
-    async addOrder() {
+    async addReport() {
       await this.$router.push('new');
     },
     onRequest() {
       debugger;
     },
-    filterTable(rows: Order[], terms: FilterState) {
+    filterTable(rows: Report[], terms: FilterState) {
       const filteredBySearchRows = rows
         .filter((row) => {
           return row.name.indexOf(terms.search) !== -1;

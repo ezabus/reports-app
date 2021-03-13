@@ -1,4 +1,4 @@
-export interface Order {
+export interface Report {
   name: string;
   description: string;
   tags: string[];
