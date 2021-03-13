@@ -22,7 +22,7 @@
           filled
           v-model="report.tags"
           multiple
-          :options="tags"
+          :options="$store.getters['common/getTags']"
           use-chips
           stack-label
           label="Tags"/>
@@ -42,7 +42,6 @@ export default defineComponent({
   name: 'PageNewReport',
   data: () => {
     return {
-      tags: [] as string[],
       report: {
         name: '',
         description: '',
@@ -51,10 +50,6 @@ export default defineComponent({
     };
   },
   methods: {
-    async loadTags() {
-      const tags = (await this.$axios.get<string[]>('/api/tags')).data;
-      this.$data.tags = tags;
-    },
     async onSubmit() {
       const report = this.$data.report;
       await this.$axios.post('/api/newReport', report);
@@ -73,7 +68,7 @@ export default defineComponent({
     }
   },
   async mounted() {
-    await this.loadTags();
+    // await this.loadTags();
   }
 });
 </script>

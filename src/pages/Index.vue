@@ -29,7 +29,7 @@
           style="width: 300px"
           v-model="filter.tags"
           multiple
-          :options="tags"
+          :options="$store.getters['common/getTags']"
           use-chips
           stack-label
           label="Tags"/>
@@ -77,13 +77,11 @@ export default defineComponent({
         }
       ] as Column[],
       reports: [] as Report[],
-      tags: [] as string[],
       filter: { search: '', tags: [] } as FilterState
     };
   },
-  async mounted() {
+  async mounted () {
     await this.loadReports();
-    await this.loadTags();
   },
   methods: {
     async addReport() {
@@ -109,10 +107,6 @@ export default defineComponent({
     async loadReports() {
       const response = await this.$axios.get<Report[]>('/api/reports');
       this.$data.reports = response.data;
-    },
-    async loadTags() {
-      const response = await this.$axios.get<string[]>('/api/tags');
-      this.$data.tags = response.data;
     }
   }
 });
