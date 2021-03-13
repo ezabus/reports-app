@@ -51,54 +51,39 @@
 
 <script lang="ts">
 import { Report, Column, FilterState } from 'components/models';
-import ExampleComponent from 'components/CompositionComponent.vue';
-import { defineComponent, ref, onMounted } from '@vue/composition-api';
-import axios from 'axios';
+import { defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { ExampleComponent },
-  setup () {
-    const reports = ref<Report[]>([]);
-    const filter = ref<FilterState>({ search: '', tags: [] });
-    const tags = ref<string[]>([]);
-
-    const columns = ref<Column[]>([
-      {
-        name: 'name',
-        label: 'Name',
-        field: 'name',
-        align: 'left'
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        field: 'description',
-        align: 'left'
-      },
-      {
-        name: 'tags',
-        label: 'Tags',
-        field: 'tags'
-      }
-    ]);
-
-    async function loadReports() {
-      const response = await axios.get<Report[]>('/api/reports');
-      reports.value = response.data;
-    }
-
-    async function loadTags() {
-      const response = await axios.get<string[]>('/api/tags');
-      tags.value = response.data;
-    }
-
-    onMounted(async () => {
-      await loadReports();
-      await loadTags();
-    });
-
-    return { reports, columns, loadReports, filter, tags };
+  data: () => {
+    return {
+      columns: [
+        {
+          name: 'name',
+          label: 'Name',
+          field: 'name',
+          align: 'left'
+        },
+        {
+          name: 'description',
+          label: 'Description',
+          field: 'description',
+          align: 'left'
+        },
+        {
+          name: 'tags',
+          label: 'Tags',
+          field: 'tags'
+        }
+      ] as Column[],
+      reports: [] as Report[],
+      tags: [] as string[],
+      filter: { search: '', tags: [] } as FilterState
+    };
+  },
+  async mounted() {
+    await this.loadReports();
+    await this.loadTags();
   },
   methods: {
     async addReport() {
@@ -120,6 +105,14 @@ export default defineComponent({
         });
       }
       return rowsToReturn;
+    },
+    async loadReports() {
+      const response = await this.$axios.get<Report[]>('/api/reports');
+      this.$data.reports = response.data;
+    },
+    async loadTags() {
+      const response = await this.$axios.get<string[]>('/api/tags');
+      this.$data.tags = response.data;
     }
   }
 });
