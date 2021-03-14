@@ -30,8 +30,12 @@
           stack-label
           label="Tags"/>
         <div>
-          <q-btn label="Create" type="submit" color="primary"/>
-          <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+          <q-toolbar>
+            <q-btn label="Create" type="submit" color="primary"/>
+            <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+            <q-space/>
+            <q-btn label="Cancel" color="primary" flat @click="onCancel"/>
+          </q-toolbar>
         </div>
       </q-form>
     </div>
@@ -59,15 +63,22 @@ export default defineComponent({
       this.$router.back();
     },
     onReset() {
+      this.reset();
+    },
+    onCancel() {
+      this.reset();
+      this.$router.back();
+    },
+    isValidName() {
+      const pattern = /^[a-zA-Z_]*$/;
+      return pattern.test(this.$data.report.name) || 'Only latin characters and underscore is allowed';
+    },
+    reset() {
       this.$data.report = {
         name: '',
         description: '',
         tags: [] as string[]
       };
-    },
-    isValidName() {
-      const pattern = /^[a-zA-Z_]*$/;
-      return pattern.test(this.$data.report.name) || 'Only latin characters and underscore is allowed';
     }
   },
   async mounted() {
