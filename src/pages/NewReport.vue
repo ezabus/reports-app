@@ -7,12 +7,14 @@
         class="q-gutter-md">
         <q-input
           filled
+          data-cy="report-name-input"
           v-model="report.name"
           label="Name"
           hint="Report Name"
           :rules="[val => !!val || 'Name is missing', isValidName]"/>
         <q-input
           filled
+          data-cy="report-description-input"
           type="textarea"
           v-model="report.description"
           label="Description"
@@ -20,6 +22,7 @@
           :rules="[ val => val.length <= 140 || 'Please use maximum 140 characters']"/>
         <q-select
           filled
+          data-cy="tags-select"
           v-model="report.tags"
           multiple
           :options="$store.getters['common/getTags']"

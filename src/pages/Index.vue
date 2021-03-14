@@ -35,7 +35,7 @@
           label="Tags"/>
       </template>
       <template v-slot:body-cell-tags="props">
-        <q-td key="name" :props="props">
+        <q-td key="name" :props="props" data-cy="tags-td">
           <div class="tagList">
             <div v-for="tag in props.row.tags" :key="tag">
               <q-chip dense color="primary" text-color="white">
