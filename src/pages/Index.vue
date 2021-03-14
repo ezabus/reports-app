@@ -89,9 +89,6 @@ export default defineComponent({
     async addReport() {
       await this.$router.push('new');
     },
-    onRequest() {
-      debugger;
-    },
     filterTable(rows: Report[], terms: FilterState) {
       const filteredBySearchRows = rows
         .filter((row) => {
