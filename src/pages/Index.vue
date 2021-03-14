@@ -17,16 +17,18 @@
       :filter-method="filterTable"
       row-key="name">
       <template v-slot:top>
-        <q-input borderless dense debounce="300" v-model="filter.search" placeholder="Report Name">
+        <q-input
+          debounce="300"
+          class="reportNameSearch"
+          v-model="filter.search"
+          placeholder="Report Name">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
         </q-input>
         <q-space/>
         <q-select
-          filled
-          class="q-mr-md"
-          style="width: 300px"
+          class="q-mr-md tagsFilter"
           v-model="filter.tags"
           multiple
           :options="$store.getters['common/getTags']"
@@ -117,5 +119,19 @@ export default defineComponent({
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.tagsFilter {
+  width: 300px;
+}
+
+@media (max-width: 600px) {
+  .reportNameSearch {
+    width: 100%;
+  }
+  .tagsFilter {
+    width: 100%;
+    margin-right: 0px;
+  }
 }
 </style>
