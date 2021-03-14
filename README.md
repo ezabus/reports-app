@@ -17,6 +17,13 @@ quasar dev
 npm run lint
 ```
 
+### Testing
+e2e tests with cypress
+
+```bash
+npm run test:e2e:ci
+```
+
 ### Build the app for production
 ```bash
 quasar build
