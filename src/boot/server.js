@@ -24,19 +24,17 @@ export default () => {
     }
   ];
   const tags = ['Customer', 'Support', 'Invest', 'Daily', 'Weekly'];
-  if (process.env.DEV) {
-    createServer({
-      routes() {
-        this.get('/api/reports', () => reports);
-        this.get('/api/tags', () => tags);
-        this.post('/api/newReport', (schema, request) => {
-          if (request.requestBody) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            const order = JSON.parse(request.requestBody);
-            reports.push(order);
-          }
-        });
-      }
-    });
-  }
+  createServer({
+    routes() {
+      this.get('/api/reports', () => reports);
+      this.get('/api/tags', () => tags);
+      this.post('/api/newReport', (schema, request) => {
+        if (request.requestBody) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const order = JSON.parse(request.requestBody);
+          reports.push(order);
+        }
+      });
+    }
+  });
 };
