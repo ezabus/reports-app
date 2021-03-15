@@ -1,6 +1,6 @@
-# Quasar App (reports-app)
+# Reports App
 
-A Quasar Framework app
+Review, filter and create reports. https://fishburgfootball.ru/reports-app/#/
 
 ## Install the dependencies
 ```bash
