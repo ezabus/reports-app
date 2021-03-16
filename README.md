@@ -1,6 +1,6 @@
 # Reports App
 
-Review, filter and create reports. https://fishburgfootball.ru/reports-app/#/
+Review, filter and create reports. Deployed app is abailable [here](https://fishburgfootball.ru/reports-app/#/).
 
 ## Install the dependencies
 ```bash
